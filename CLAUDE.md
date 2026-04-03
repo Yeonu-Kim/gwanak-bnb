@@ -160,3 +160,25 @@ externalCall (fetch 래퍼, App.tsx 정의)
 | `sm` | 760px |
 | `md` | 984px |
 | `lg` | 1344px |
+
+# Airbnb Clone
+
+Airbnb 메인 페이지 프론트엔드 클론. MSW로 목 API를 구성하며 백엔드 없이 동작한다.
+
+
+## Key Features
+
+- **헤더 카테고리 탭**: 숙소/체험/서비스 아이콘은 `<video>` 태그. NEW 배지 영역 포함 전체가 video.
+- **검색 필터**: 필드 클릭 시 옆으로 슬라이딩 전환. 하단 상세 필터도 슬라이드 다운. 닫히지 않고 전환됨.
+- **모달/드롭다운**: 헤더 탭 클릭 시 하단 슬라이드 모달. 팝업 방식(사라졌다 나타남) 사용 금지.
+- **숙소 카드 피드**: 지역별 섹션 + 가로 스크롤 캐러셀. 찜 토글, 게스트 선호 배지.
+
+## Mock API Endpoints
+
+| Method | Endpoint | 설명 |
+|--------|----------|------|
+| GET | /api/accomodations | 숙소 목록 (지역·날짜·인원 필터) |
+| GET | /api/accomodations/:id | 숙소 상세 |
+| POST | /api/accomodations/:id/wishlist | 찜 토글 |
+| GET | /api/search/suggestions | 여행지 자동완성 |
+
