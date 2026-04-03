@@ -1,5 +1,5 @@
-import { useState } from "react";
-import "./app.module.css";
+import { useState } from 'react';
+import './app.module.css';
 
 const App = () => {
   const [adultCount, setAdultCount] = useState(0);
@@ -9,29 +9,29 @@ const App = () => {
 
   const SERACH_DATA = [
     {
-      type: "성인",
-      age: "13세 이상",
+      type: '성인',
+      age: '13세 이상',
       onClickAdd: () => setAdultCount(adultCount + 1),
       onClickMinus: () => setAdultCount(adultCount - 1),
       content: adultCount,
     },
     {
-      type: "어린이",
-      age: "2~12세",
+      type: '어린이',
+      age: '2~12세',
       onClickAdd: () => setChildCount(childCount + 1),
       onClickMinus: () => setChildCount(childCount - 1),
       content: childCount,
     },
     {
-      type: "유아",
-      age: "2세 미만",
+      type: '유아',
+      age: '2세 미만',
       onClickAdd: () => setBabyCount(babyCount + 1),
       onClickMinus: () => setBabyCount(babyCount - 1),
       content: babyCount,
     },
     {
-      type: "반려동물",
-      urlContent: "보조동물을 동반하시나요?",
+      type: '반려동물',
+      urlContent: '보조동물을 동반하시나요?',
       onClickAdd: () => setPetCount(petCount + 1),
       onClickMinus: () => setPetCount(petCount - 1),
       content: petCount,
@@ -66,7 +66,7 @@ const App = () => {
               </button>
             </div>
           </div>
-        ),
+        )
       )}
     </div>
   );
