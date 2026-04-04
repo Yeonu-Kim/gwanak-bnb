@@ -49,7 +49,7 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white">
-      <div className="relative px-12 pt-1 flex h-20.5 max-w-[1760px] items-center justify-center px-6">
+      <div className="relative pt-1 flex h-20.5 max-w-[1760px] items-center justify-center px-6">
         <AirbnbLogo />
         <div className="flex h-full gap-9 items-center">
           {CATEGORY_TABS.map((tab) => (
