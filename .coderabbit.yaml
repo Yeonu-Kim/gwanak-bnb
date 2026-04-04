@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "ko-KR"
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  auto_review:
+    enabled: true
+    drafts: false
+    ignore_title_keywords:
+      - "WIP"
+      - "DO NOT MERGE"
+      - "DRAFT"
+  path_filters:
+    - "!**/*.lock"
+    - "!**/dist/**"
+    - "!**/*.svg"
+    - "!**/*.png"
+    - "!**/*.jpg"
+    - "!**/*.gif"
+    - "!**/__generated__/**"
+  path_instructions:
+    - path: "src/feature/*/domain/**"
+      instructions: |
+        도메인 레이어입니다.
+        - 타입/인터페이스 정의만 있어야 합니다. implXxx 구현체가 섞여 있으면 지적해주세요.
+        - 외부 라이브러리(React, TanStack Query 등) 의존성이 침투하면 안 됩니다.
+
+    - path: "src/feature/*/service/**"
+      instructions: |
+        서비스 레이어입니다.
+        - implXxxService({ apis }): XxxService 시그니처를 따르는지 확인해주세요.
+        - 모든 메서드는 ServiceResponse<T> ({ type: 'success', data } | { type: 'error', code, message })를 반환해야 합니다.
+        - try/catch는 UNKNOWN_ERROR 처리 목적으로만 사용해야 합니다. 상태 코드 분기는 if (status === 200) 패턴으로 처리해야 합니다.
+
+    - path: "src/api/**"
+      instructions: |
+        API 레이어입니다.
+        - 로컬 서버 엔드포인트 키는 'METHOD /path' 형태여야 합니다 (예: 'GET /post').
+        - 토큰 필요 여부에 따라 callWithToken / callWithoutToken / callWithOptionalToken을 올바르게 선택했는지 확인해주세요.
+
+    - path: "src/pages/**"
+      instructions: |
+        페이지 컴포넌트입니다.
+        - useNavigate, Link 등 라우팅 라이브러리를 직접 사용하면 안 됩니다. 반드시 useRouteNavigation 훅을 통해야 합니다.
+        - 경로 파라미터/쿼리 읽기는 useRouteParams를 사용해야 합니다.
+  
+
+chat:
+  auto_reply: true
