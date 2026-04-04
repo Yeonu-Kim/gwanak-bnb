@@ -150,6 +150,7 @@ externalCall (fetch 래퍼, App.tsx 정의)
 ## 스타일링 규칙
 
 - **CSS 파일 작성 금지** — TailwindCSS 유틸리티 클래스만 사용
+- 단, index.css에 대해서는 예외적으로 허용
 - 조건부 클래스 조합: `cn()` 함수 사용 (`clsx` + `tailwind-merge` 래퍼)
   ```ts
   import { cn } from '@/lib/utils';
