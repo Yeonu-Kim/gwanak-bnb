@@ -100,13 +100,13 @@ export const CategoryTab = ({
       type="button"
       onClick={onClick}
       className={cn(
-        'flex gap-3 cursor-pointer items-center justify-end border-b-3 pb-1 border-transparent bg-transparent text-neutral-500 transition-colors',
+        'flex cursor-pointer items-center justify-end gap-3 border-transparent border-b-3 bg-transparent pb-1 text-neutral-500 transition-colors',
         isSelected && 'border-neutral-800 text-neutral-800'
       )}
     >
       <div className="relative flex items-center justify-center">
         {data.showNewBadge && (
-          <span className="pointer-events-none absolute -right-6 -top-1 z-10 rounded-full bg-neutral-900 px-1.5 py-0.5 text-[8px] font-extrabold tracking-[0.4px] text-white">
+          <span className="pointer-events-none absolute -top-1 -right-6 z-10 rounded-full bg-neutral-900 px-1.5 py-0.5 font-extrabold text-[8px] text-white tracking-[0.4px]">
             NEW
           </span>
         )}
@@ -119,7 +119,7 @@ export const CategoryTab = ({
               playsInline
               onError={() => setVideoState('thumbnail')}
               onEnded={() => setVideoState('thumbnail')}
-              className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 object-cover"
+              className="absolute top-1/2 left-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 object-cover"
             >
               <source src={videoSrc} type="video/webm" />
             </video>
@@ -129,12 +129,12 @@ export const CategoryTab = ({
             <img
               src={data.thumbnail}
               alt={data.label}
-              className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 object-cover"
+              className="absolute top-1/2 left-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 object-cover"
             />
           </span>
         )}
       </div>
-      <span className="whitespace-nowrap text-sm font-semibold leading-none">
+      <span className="whitespace-nowrap font-semibold text-sm leading-none">
         {data.label}
       </span>
     </button>

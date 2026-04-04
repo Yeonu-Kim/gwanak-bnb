@@ -103,6 +103,9 @@
         "useConst": "error",
         "noParameterAssign": "error",
         "useBlockStatements": "error"
+      },
+      "nursery": {
+        "useSortedClasses": "error"
       }
     }
   },

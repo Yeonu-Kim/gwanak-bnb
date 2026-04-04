@@ -11,17 +11,17 @@ import { ASSET_SRC } from '@/shared/asset';
 const AirbnbLogo = () => (
   <a
     href="#"
-    className="absolute left-12 top-1/2 -translate-y-1/2 flex flex-shrink-0 cursor-pointer items-center gap-0.5"
+    className="absolute top-1/2 left-12 flex flex-shrink-0 -translate-y-1/2 cursor-pointer items-center gap-0.5"
   >
     <img className="w-30" src={ASSET_SRC.LOGO} alt="Airbnb" />
   </a>
 );
 
 const RightNav = () => (
-  <nav className="absolute right-12 top-1/2 -translate-y-1/2 flex items-center gap-0.5">
+  <nav className="absolute top-1/2 right-12 flex -translate-y-1/2 items-center gap-0.5">
     <button
       type="button"
-      className="cursor-pointer whitespace-nowrap rounded-3xl border-none bg-transparent px-3.5 py-2.5 text-sm font-semibold text-neutral-800 transition-colors hover:bg-neutral-100"
+      className="cursor-pointer whitespace-nowrap rounded-3xl border-none bg-transparent px-3.5 py-2.5 font-semibold text-neutral-800 text-sm transition-colors hover:bg-neutral-100"
     >
       호스팅 하기
     </button>
@@ -48,10 +48,10 @@ export const Header = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>('STAYS');
 
   return (
-    <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white">
-      <div className="relative pt-1 flex h-20.5 max-w-[1760px] items-center justify-center px-6">
+    <header className="sticky top-0 z-50 border-neutral-200 border-b bg-white">
+      <div className="relative flex h-20.5 max-w-[1760px] items-center justify-center px-6 pt-1">
         <AirbnbLogo />
-        <div className="flex h-full gap-9 items-center">
+        <div className="flex h-full items-center gap-9">
           {CATEGORY_TABS.map((tab) => (
             <CategoryTab
               key={tab.id}
