@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  /* Custom breakpoints (CLAUDE.md) */
+  --breakpoint-xs: 580px;
+  --breakpoint-sm: 760px;
+  --breakpoint-md: 984px;
+  --breakpoint-lg: 1344px;
+
+  /* Airbnb brand colors */
+  --color-airbnb: #ff385c;
+  --color-airbnb-hover: #e0003f;
+}
