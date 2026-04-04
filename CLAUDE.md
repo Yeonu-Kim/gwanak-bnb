@@ -46,8 +46,8 @@
 ```
 src/
 ├── api/                  # API 클라이언트 + 엔드포인트 정의
-│   ├── apis/localServer/ # 로컬 서버 엔드포인트
-│   ├── apis/externalServer/ # 외부 서버(S3 등) 엔드포인트
+│   ├── apis/local-server/ # 로컬 서버 엔드포인트
+│   ├── apis/external-server/ # 외부 서버(S3 등) 엔드포인트
 │   └── client.ts         # implApi / implExternalApi
 ├── components/           # 피처에 독립적인 공통 UI 컴포넌트
 │   └── ui/               # shadcn 기반 Radix UI 래퍼
@@ -133,8 +133,6 @@ externalCall (fetch 래퍼, App.tsx 정의)
 | 컴포넌트/타입 | PascalCase | `PostCard`, `PostService` |
 | 함수/변수/훅 | camelCase | `implPostService`, `useRouteNavigation` |
 | 상수 | UPPER_SNAKE_CASE | `PATH`, `JOB_CATEGORY_MAP` |
-| 파일명 (컴포넌트) | PascalCase | `PostCard.tsx` |
-| 파일명 (훅/서비스) | camelCase | `postService.ts`, `useGuardContext.ts` |
 
 타입 네이밍에서 IType 등 헝가리안 네이밍 금지
 
