@@ -53,19 +53,16 @@ export const CategoryTab = ({
   onClick: () => void;
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoState, setVideoState] = useState<VideoState>('twirl');
-  const prevIsSelectedRef = useRef(isSelected);
+  const [twirlDone, setTwirlDone] = useState(false);
+  const [hasBeenSelected, setHasBeenSelected] = useState(false);
 
-  useEffect(() => {
-    const prev = prevIsSelectedRef.current;
-    prevIsSelectedRef.current = isSelected;
-
-    if (!prev && isSelected) {
-      setVideoState('selected');
-    } else if (prev && !isSelected) {
-      setVideoState('thumbnail');
-    }
-  }, [isSelected]);
+  const videoState: VideoState = !twirlDone
+    ? 'twirl'
+    : isSelected
+      ? 'selected'
+      : hasBeenSelected
+        ? 'thumbnail'
+        : 'twirl';
 
   const videoSrc =
     videoState === 'twirl'
@@ -78,6 +75,7 @@ export const CategoryTab = ({
     if (videoSrc === null) {
       return;
     }
+
     let cancelled = false;
     const video = videoRef.current;
     if (video === null) {
@@ -85,20 +83,35 @@ export const CategoryTab = ({
         cancelled = true;
       };
     }
+
     void video.play().catch(() => {
       if (!cancelled) {
-        setVideoState('thumbnail');
+        if (!twirlDone) {
+          setTwirlDone(true);
+        } else {
+          setHasBeenSelected(true);
+        }
       }
     });
+
     return () => {
       cancelled = true;
     };
   }, [videoSrc]);
 
+  const handleVideoEnded = () => {
+    if (!twirlDone) {
+      setTwirlDone(true);
+    } else {
+      setHasBeenSelected(true);
+    }
+  };
+
   return (
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={isSelected}
       className={cn(
         'flex cursor-pointer items-center justify-end gap-3 border-transparent border-b-3 bg-transparent pb-1 text-neutral-500 transition-colors',
         isSelected && 'border-neutral-800 text-neutral-800'
@@ -117,8 +130,8 @@ export const CategoryTab = ({
               ref={videoRef}
               muted
               playsInline
-              onError={() => setVideoState('thumbnail')}
-              onEnded={() => setVideoState('thumbnail')}
+              onEnded={handleVideoEnded}
+              onError={handleVideoEnded}
               className="absolute top-1/2 left-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 object-cover"
             >
               <source src={videoSrc} type="video/webm" />
