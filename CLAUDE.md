@@ -115,7 +115,16 @@ externalCall (fetch 래퍼, App.tsx 정의)
 
 ---
 
+## 폴더 및 파일 네이밍 규칙
+
+- 모든 폴더와 파일은 'xxx-xxx' 꼴로 작성.
+- App.tsx 제외 대문자 사용 금지
+
+
 ## 코딩 컨벤션
+
+- named export만 사용. default export 사용하지 않음.
+- import 시 절대경로 사용 ('@'), 상대경로 사용하지 않음.
 
 ### 네이밍
 

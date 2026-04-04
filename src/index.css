@@ -1,6 +1,25 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'AirbnbCereal';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src:
+    url('https://a0.muscache.com/airbnb/static/airbnb-dls-web/build/fonts/cereal-variable/AirbnbCerealVF_W_Wght.8816d9e….woff2')
+      format('woff2 supports variations'),
+    url('https://a0.muscache.com/airbnb/static/airbnb-dls-web/build/fonts/cereal-variable/AirbnbCerealVF_W_Wght.8816d9e….woff2')
+      format('woff2-variations');
+}
+
+@layer base {
+  body {
+    font-family: 'AirbnbCereal', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+}
+
 @theme {
+  --font-cereal: 'AirbnbCereal', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   /* Custom breakpoints (CLAUDE.md) */
   --breakpoint-xs: 580px;
   --breakpoint-sm: 760px;
