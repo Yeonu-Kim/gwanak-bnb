@@ -9,9 +9,12 @@ import { Globe, Menu } from '@/components/ui/icon';
 import { ASSET_SRC } from '@/shared/asset';
 
 const AirbnbLogo = () => (
-  <div className="absolute left-12 top-1/2 -translate-y-1/2 flex flex-shrink-0 cursor-pointer items-center gap-0.5">
+  <a
+    href="#"
+    className="absolute left-12 top-1/2 -translate-y-1/2 flex flex-shrink-0 cursor-pointer items-center gap-0.5"
+  >
     <img className="w-30" src={ASSET_SRC.LOGO} alt="Airbnb" />
-  </div>
+  </a>
 );
 
 const RightNav = () => (
