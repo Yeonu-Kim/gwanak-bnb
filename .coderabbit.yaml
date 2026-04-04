@@ -21,6 +21,9 @@ reviews:
     - "!**/*.jpg"
     - "!**/*.gif"
     - "!**/__generated__/**"
+  instructions: |
+    PR 설명의 템플릿 주석(<!-- -->)은 무시하세요.
+    실제 작성된 "완료 작업 목록", "고민과 해결 과정", "AI 활용 경험" 섹션 내용만 리뷰 컨텍스트로 활용하세요.
   path_instructions:
     - path: "src/feature/*/domain/**"
       instructions: |
@@ -46,6 +49,7 @@ reviews:
         페이지 컴포넌트입니다.
         - useNavigate, Link 등 라우팅 라이브러리를 직접 사용하면 안 됩니다. 반드시 useRouteNavigation 훅을 통해야 합니다.
         - 경로 파라미터/쿼리 읽기는 useRouteParams를 사용해야 합니다.
+  
 
 chat:
   auto_reply: true
