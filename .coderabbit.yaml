@@ -21,9 +21,6 @@ reviews:
     - "!**/*.jpg"
     - "!**/*.gif"
     - "!**/__generated__/**"
-  instructions: |
-    PR 설명의 템플릿 주석(<!-- -->)은 무시하세요.
-    실제 작성된 "완료 작업 목록", "고민과 해결 과정", "AI 활용 경험" 섹션 내용만 리뷰 컨텍스트로 활용하세요.
   path_instructions:
     - path: "src/feature/*/domain/**"
       instructions: |
