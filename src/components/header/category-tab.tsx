@@ -41,7 +41,37 @@ export const CATEGORY_TABS: CategoryTabData[] = [
   },
 ];
 
-type VideoState = 'twirl' | 'selected' | 'thumbnail';
+type VideoState = 'TWIRL' | 'SELECTED' | 'THUMBNAIL';
+
+const resolveVideoState = (
+  twirlDone: boolean,
+  isSelected: boolean,
+  hasBeenSelected: boolean
+): VideoState => {
+  if (!twirlDone) {
+    return 'TWIRL';
+  }
+  if (isSelected) {
+    return 'SELECTED';
+  }
+  if (hasBeenSelected) {
+    return 'THUMBNAIL';
+  }
+  return 'TWIRL';
+};
+
+const resolveVideoSrc = (
+  videoState: VideoState,
+  data: CategoryTabData
+): string | null => {
+  if (videoState === 'TWIRL') {
+    return data.twirlSrc;
+  }
+  if (videoState === 'SELECTED') {
+    return data.selectedSrc;
+  }
+  return null;
+};
 
 export const CategoryTab = ({
   data,
@@ -56,20 +86,8 @@ export const CategoryTab = ({
   const [twirlDone, setTwirlDone] = useState(false);
   const [hasBeenSelected, setHasBeenSelected] = useState(false);
 
-  const videoState: VideoState = !twirlDone
-    ? 'twirl'
-    : isSelected
-      ? 'selected'
-      : hasBeenSelected
-        ? 'thumbnail'
-        : 'twirl';
-
-  const videoSrc =
-    videoState === 'twirl'
-      ? data.twirlSrc
-      : videoState === 'selected'
-        ? data.selectedSrc
-        : null;
+  const videoState = resolveVideoState(twirlDone, isSelected, hasBeenSelected);
+  const videoSrc = resolveVideoSrc(videoState, data);
 
   useEffect(() => {
     if (videoSrc === null) {
