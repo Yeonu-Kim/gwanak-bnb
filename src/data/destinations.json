@@ -1,0 +1,242 @@
+[
+  {
+    "id": "busan",
+    "place": "부산",
+    "category": "대한민국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/busan/80/80"
+  },
+  {
+    "id": "busan-gwangan",
+    "place": "광안리해수욕장",
+    "category": "대한민국 · 부산 · 자연 명소",
+    "thumbnail_image": "https://picsum.photos/seed/gwangan/80/80"
+  },
+  {
+    "id": "busan-haeundae",
+    "place": "해운대",
+    "category": "대한민국 · 부산 · 해수욕장",
+    "thumbnail_image": "https://picsum.photos/seed/haeundae/80/80"
+  },
+  {
+    "id": "busan-station",
+    "place": "부산역",
+    "category": "대한민국 · 부산 · 지하철역",
+    "thumbnail_image": "https://picsum.photos/seed/busanstation/80/80"
+  },
+  {
+    "id": "busan-gijang",
+    "place": "기장군",
+    "category": "대한민국 · 부산 · 지역",
+    "thumbnail_image": "https://picsum.photos/seed/gijang/80/80"
+  },
+  {
+    "id": "busan-nampo",
+    "place": "남포동",
+    "category": "대한민국 · 부산 · 지역",
+    "thumbnail_image": "https://picsum.photos/seed/nampo/80/80"
+  },
+  {
+    "id": "busan-seomyeon",
+    "place": "서면",
+    "category": "대한민국 · 부산 · 지역",
+    "thumbnail_image": "https://picsum.photos/seed/seomyeon/80/80"
+  },
+  {
+    "id": "busan-haedong",
+    "place": "해동용궁사",
+    "category": "대한민국 · 부산 · 사찰",
+    "thumbnail_image": "https://picsum.photos/seed/haedong/80/80"
+  },
+  {
+    "id": "busan-gamcheon",
+    "place": "감천문화마을",
+    "category": "대한민국 · 부산 · 관광 명소",
+    "thumbnail_image": "https://picsum.photos/seed/gamcheon/80/80"
+  },
+  {
+    "id": "seoul",
+    "place": "서울",
+    "category": "대한민국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/seoul/80/80"
+  },
+  {
+    "id": "seoul-gyeongbok",
+    "place": "경복궁",
+    "category": "대한민국 · 서울 · 관광 명소",
+    "thumbnail_image": "https://picsum.photos/seed/gyeongbok/80/80"
+  },
+  {
+    "id": "seoul-myeongdong",
+    "place": "명동",
+    "category": "대한민국 · 서울 · 쇼핑 지역",
+    "thumbnail_image": "https://picsum.photos/seed/myeongdong/80/80"
+  },
+  {
+    "id": "jeju",
+    "place": "제주",
+    "category": "대한민국 · 섬",
+    "thumbnail_image": "https://picsum.photos/seed/jeju/80/80"
+  },
+  {
+    "id": "jeju-seongsan",
+    "place": "성산일출봉",
+    "category": "대한민국 · 제주 · 자연 명소",
+    "thumbnail_image": "https://picsum.photos/seed/seongsan/80/80"
+  },
+  {
+    "id": "jeju-hallasan",
+    "place": "한라산",
+    "category": "대한민국 · 제주 · 자연 명소",
+    "thumbnail_image": "https://picsum.photos/seed/hallasan/80/80"
+  },
+  {
+    "id": "gyeongju",
+    "place": "경주",
+    "category": "대한민국 · 역사 도시",
+    "thumbnail_image": "https://picsum.photos/seed/gyeongju/80/80"
+  },
+  {
+    "id": "jeonju",
+    "place": "전주",
+    "category": "대한민국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/jeonju/80/80"
+  },
+  {
+    "id": "incheon",
+    "place": "인천",
+    "category": "대한민국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/incheon/80/80"
+  },
+  {
+    "id": "gangneung",
+    "place": "강릉",
+    "category": "대한민국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/gangneung/80/80"
+  },
+  {
+    "id": "daegu",
+    "place": "대구",
+    "category": "대한민국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/daegu/80/80"
+  },
+  {
+    "id": "gwangju",
+    "place": "광주",
+    "category": "대한민국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/gwangju/80/80"
+  },
+  {
+    "id": "suwon",
+    "place": "수원",
+    "category": "대한민국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/suwon/80/80"
+  },
+  {
+    "id": "tokyo",
+    "place": "도쿄",
+    "category": "일본 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/tokyo/80/80"
+  },
+  {
+    "id": "osaka",
+    "place": "오사카",
+    "category": "일본 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/osaka/80/80"
+  },
+  {
+    "id": "kyoto",
+    "place": "교토",
+    "category": "일본 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/kyoto/80/80"
+  },
+  {
+    "id": "sapporo",
+    "place": "삿포로",
+    "category": "일본 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/sapporo/80/80"
+  },
+  {
+    "id": "fukuoka",
+    "place": "후쿠오카",
+    "category": "일본 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/fukuoka/80/80"
+  },
+  {
+    "id": "nara",
+    "place": "나라",
+    "category": "일본 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/nara/80/80"
+  },
+  {
+    "id": "bangkok",
+    "place": "방콕",
+    "category": "태국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/bangkok/80/80"
+  },
+  {
+    "id": "singapore",
+    "place": "싱가포르",
+    "category": "싱가포르 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/singapore/80/80"
+  },
+  {
+    "id": "hongkong",
+    "place": "홍콩",
+    "category": "홍콩 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/hongkong/80/80"
+  },
+  {
+    "id": "taipei",
+    "place": "타이페이",
+    "category": "대만 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/taipei/80/80"
+  },
+  {
+    "id": "beijing",
+    "place": "베이징",
+    "category": "중국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/beijing/80/80"
+  },
+  {
+    "id": "shanghai",
+    "place": "상하이",
+    "category": "중국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/shanghai/80/80"
+  },
+  {
+    "id": "bali",
+    "place": "발리",
+    "category": "인도네시아 · 섬",
+    "thumbnail_image": "https://picsum.photos/seed/bali/80/80"
+  },
+  {
+    "id": "hanoi",
+    "place": "하노이",
+    "category": "베트남 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/hanoi/80/80"
+  },
+  {
+    "id": "paris",
+    "place": "파리",
+    "category": "프랑스 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/paris/80/80"
+  },
+  {
+    "id": "london",
+    "place": "런던",
+    "category": "영국 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/london/80/80"
+  },
+  {
+    "id": "rome",
+    "place": "로마",
+    "category": "이탈리아 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/rome/80/80"
+  },
+  {
+    "id": "barcelona",
+    "place": "바르셀로나",
+    "category": "스페인 · 도시",
+    "thumbnail_image": "https://picsum.photos/seed/barcelona/80/80"
+  }
+]

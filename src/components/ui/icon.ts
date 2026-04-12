@@ -7,4 +7,5 @@ export {
   Plus,
   Search,
   UserRound,
+  X,
 } from 'lucide-react';

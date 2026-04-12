@@ -7,8 +7,10 @@ import {
   type GuestCounts,
   GuestsPanel,
 } from '@/components/header/search-panel/guests-panel';
-import { Search } from '@/components/ui/icon';
+import { Search, X } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
+import { useGuardContext } from '@/shared/context/hooks';
+import { ServiceContext } from '@/shared/context/service-context';
 
 type FilterType = 'DESTINATION' | 'DATE' | 'GUESTS';
 
@@ -51,6 +53,8 @@ const getDropdownTransition = (phase: DropdownPhase) => {
 };
 
 export const SearchBar = () => {
+  const { destinationSearchService } = useGuardContext(ServiceContext);
+
   const [activeFilter, setActiveFilter] = useState<FilterType | null>(null);
   const [displayFilter, setDisplayFilter] = useState<FilterType | null>(null);
   const [dropdownPhase, setDropdownPhase] = useState<DropdownPhase>('closed');
@@ -67,7 +71,19 @@ export const SearchBar = () => {
   const [indicatorLeft, setIndicatorLeft] = useState(0);
   const [indicatorWidth, setIndicatorWidth] = useState(0);
 
+  const [destinationQuery, setDestinationQuery] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
+
+  const filteredDestinations = destinationSearchService.getFilteredDestinations(
+    {
+      query: destinationQuery,
+    }
+  );
+  const inputDisplayValue =
+    selectedIndex >= 0
+      ? (filteredDestinations[selectedIndex]?.place ?? destinationQuery)
+      : destinationQuery;
   const [guests, setGuests] = useState<GuestCounts>({
     ADULTS: 0,
     CHILDREN: 0,
@@ -77,11 +93,9 @@ export const SearchBar = () => {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const pillRef = useRef<HTMLDivElement>(null);
-  const filterRefs: Record<
-    FilterType,
-    React.RefObject<HTMLButtonElement | null>
-  > = {
-    DESTINATION: useRef<HTMLButtonElement>(null),
+  const inputRef = useRef<HTMLInputElement>(null);
+  const filterRefs = {
+    DESTINATION: useRef<HTMLDivElement>(null),
     DATE: useRef<HTMLButtonElement>(null),
     GUESTS: useRef<HTMLButtonElement>(null),
   };
@@ -135,6 +149,35 @@ export const SearchBar = () => {
       indicatorLeft: elRect.left - pillRect.left,
       indicatorWidth: elRect.width,
     };
+  };
+
+  const handleSelectDestination = (place: string) => {
+    setDestinationQuery(place);
+    setSelectedIndex(-1);
+    handleSectionClick('DATE');
+  };
+
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      e.stopPropagation();
+      setSelectedIndex((prev) =>
+        Math.min(prev + 1, filteredDestinations.length - 1)
+      );
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      e.stopPropagation();
+      setSelectedIndex((prev) => Math.max(prev - 1, -1));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      e.stopPropagation();
+      const selected = filteredDestinations[selectedIndex];
+      if (selectedIndex >= 0 && selected !== undefined) {
+        handleSelectDestination(selected.place);
+      } else if (destinationQuery.trim() !== '') {
+        handleSectionClick('DATE');
+      }
+    }
   };
 
   const handleSectionClick = (filter: FilterType) => {
@@ -193,6 +236,15 @@ export const SearchBar = () => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
+  useEffect(() => {
+    if (activeFilter === 'DESTINATION') {
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [activeFilter]);
+
   useEffect(() => () => clearContentTimer(), []);
 
   const dropdownTransition = getDropdownTransition(dropdownPhase);
@@ -226,12 +278,18 @@ export const SearchBar = () => {
         />
 
         {/* 여행지 */}
-        <button
+        <div
           ref={filterRefs.DESTINATION}
-          type="button"
+          role="button"
+          tabIndex={0}
           onClick={() => handleSectionClick('DESTINATION')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleSectionClick('DESTINATION');
+            }
+          }}
           className={cn(
-            'relative z-10 flex min-h-14 flex-1 cursor-pointer flex-col justify-center rounded-full px-6 text-left transition-colors',
+            'relative z-10 flex min-h-14 flex-1 cursor-pointer flex-col justify-center gap-1 rounded-full px-6 text-left transition-colors',
             isOpen &&
               activeFilter !== 'DESTINATION' &&
               'hover:bg-neutral-200/60'
@@ -240,10 +298,51 @@ export const SearchBar = () => {
           <span className="font-bold text-neutral-800 text-xs leading-none">
             여행지
           </span>
-          <span className="mt-0.5 text-neutral-500 text-sm leading-none">
-            여행지 검색
-          </span>
-        </button>
+          {activeFilter === 'DESTINATION' ? (
+            <>
+              <input
+                ref={inputRef}
+                type="text"
+                value={inputDisplayValue}
+                onChange={(e) => {
+                  setSelectedIndex(-1);
+                  setDestinationQuery(e.target.value);
+                }}
+                onKeyDown={handleInputKeyDown}
+                onClick={(e) => e.stopPropagation()}
+                placeholder="여행지 검색"
+                className="h-4 w-full bg-transparent py-0 pr-6 text-neutral-800 text-sm leading-none outline-none placeholder:text-neutral-500"
+                style={{
+                  lineHeight: 1,
+                }}
+              />
+              {destinationQuery !== '' && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setDestinationQuery('');
+                    inputRef.current?.focus();
+                  }}
+                  className="absolute top-1/2 right-3 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full text-neutral-800 hover:bg-neutral-100"
+                >
+                  <X size={10} />
+                </button>
+              )}
+            </>
+          ) : (
+            <span
+              className={cn(
+                'mt-0.5 text-sm leading-none',
+                destinationQuery !== ''
+                  ? 'text-neutral-800'
+                  : 'text-neutral-500'
+              )}
+            >
+              {destinationQuery !== '' ? destinationQuery : '여행지 검색'}
+            </span>
+          )}
+        </div>
 
         {/* 구분선 1 */}
         <div
@@ -260,7 +359,7 @@ export const SearchBar = () => {
           type="button"
           onClick={() => handleSectionClick('DATE')}
           className={cn(
-            'relative z-10 flex min-h-14 flex-1 cursor-pointer flex-col justify-center rounded-full px-6 text-left transition-colors',
+            'relative z-10 flex min-h-14 flex-1 cursor-pointer flex-col justify-center gap-1 rounded-full px-6 text-left transition-colors',
             isOpen && activeFilter !== 'DATE' && 'hover:bg-neutral-200/60'
           )}
         >
@@ -287,7 +386,7 @@ export const SearchBar = () => {
           type="button"
           onClick={() => handleSectionClick('GUESTS')}
           className={cn(
-            'relative z-10 flex min-h-14 flex-[1.2] cursor-pointer flex-col justify-center rounded-full py-3 pr-2 pl-6 text-left transition-colors',
+            'relative z-10 flex min-h-14 flex-[1.2] cursor-pointer flex-col justify-center gap-1 rounded-full py-3 pr-2 pl-6 text-left transition-colors',
             isOpen && activeFilter !== 'GUESTS' && 'hover:bg-neutral-200/60'
           )}
         >
@@ -350,7 +449,14 @@ export const SearchBar = () => {
             transition: `opacity ${ANIMATION.FADE_MS}ms ease`,
           }}
         >
-          {displayFilter === 'DESTINATION' && <DestinationPanel />}
+          {displayFilter === 'DESTINATION' && (
+            <DestinationPanel
+              query={destinationQuery}
+              filteredDestinations={filteredDestinations}
+              selectedIndex={selectedIndex}
+              onSelect={handleSelectDestination}
+            />
+          )}
           {displayFilter === 'DATE' && (
             <DatePanel dateRange={dateRange} onDateRangeChange={setDateRange} />
           )}
