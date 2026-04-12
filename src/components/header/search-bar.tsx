@@ -9,6 +9,8 @@ import {
 } from '@/components/header/search-panel/guests-panel';
 import { Search, X } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
+import { useGuardContext } from '@/shared/context/hooks';
+import { ServiceContext } from '@/shared/context/service-context';
 
 type FilterType = 'DESTINATION' | 'DATE' | 'GUESTS';
 
@@ -51,6 +53,8 @@ const getDropdownTransition = (phase: DropdownPhase) => {
 };
 
 export const SearchBar = () => {
+  const { destinationSearchService } = useGuardContext(ServiceContext);
+
   const [activeFilter, setActiveFilter] = useState<FilterType | null>(null);
   const [displayFilter, setDisplayFilter] = useState<FilterType | null>(null);
   const [dropdownPhase, setDropdownPhase] = useState<DropdownPhase>('closed');
@@ -68,7 +72,18 @@ export const SearchBar = () => {
   const [indicatorWidth, setIndicatorWidth] = useState(0);
 
   const [destinationQuery, setDestinationQuery] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
+
+  const filteredDestinations = destinationSearchService.getFilteredDestinations(
+    {
+      query: destinationQuery,
+    }
+  );
+  const inputDisplayValue =
+    selectedIndex >= 0
+      ? (filteredDestinations[selectedIndex]?.place ?? destinationQuery)
+      : destinationQuery;
   const [guests, setGuests] = useState<GuestCounts>({
     ADULTS: 0,
     CHILDREN: 0,
@@ -134,6 +149,35 @@ export const SearchBar = () => {
       indicatorLeft: elRect.left - pillRect.left,
       indicatorWidth: elRect.width,
     };
+  };
+
+  const handleSelectDestination = (place: string) => {
+    setDestinationQuery(place);
+    setSelectedIndex(-1);
+    handleSectionClick('DATE');
+  };
+
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      e.stopPropagation();
+      setSelectedIndex((prev) =>
+        Math.min(prev + 1, filteredDestinations.length - 1)
+      );
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      e.stopPropagation();
+      setSelectedIndex((prev) => Math.max(prev - 1, -1));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      e.stopPropagation();
+      const selected = filteredDestinations[selectedIndex];
+      if (selectedIndex >= 0 && selected !== undefined) {
+        handleSelectDestination(selected.place);
+      } else if (destinationQuery.trim() !== '') {
+        handleSectionClick('DATE');
+      }
+    }
   };
 
   const handleSectionClick = (filter: FilterType) => {
@@ -259,8 +303,12 @@ export const SearchBar = () => {
               <input
                 ref={inputRef}
                 type="text"
-                value={destinationQuery}
-                onChange={(e) => setDestinationQuery(e.target.value)}
+                value={inputDisplayValue}
+                onChange={(e) => {
+                  setSelectedIndex(-1);
+                  setDestinationQuery(e.target.value);
+                }}
+                onKeyDown={handleInputKeyDown}
                 onClick={(e) => e.stopPropagation()}
                 placeholder="여행지 검색"
                 className="h-4 w-full bg-transparent py-0 pr-6 text-neutral-800 text-sm leading-none outline-none placeholder:text-neutral-500"
@@ -402,7 +450,12 @@ export const SearchBar = () => {
           }}
         >
           {displayFilter === 'DESTINATION' && (
-            <DestinationPanel query={destinationQuery} />
+            <DestinationPanel
+              query={destinationQuery}
+              filteredDestinations={filteredDestinations}
+              selectedIndex={selectedIndex}
+              onSelect={handleSelectDestination}
+            />
           )}
           {displayFilter === 'DATE' && (
             <DatePanel dateRange={dateRange} onDateRangeChange={setDateRange} />

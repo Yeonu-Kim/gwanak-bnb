@@ -1,8 +1,8 @@
 import { type ComponentType, type ReactNode } from 'react';
 
 import { MapPin, Navigation2 } from '@/components/ui/icon';
-import { useGuardContext } from '@/shared/context/hooks';
-import { ServiceContext } from '@/shared/context/service-context';
+import type { Destination } from '@/feature/domain/destination-search';
+import { cn } from '@/lib/utils';
 
 type DefaultSuggestion = {
   id: string;
@@ -10,6 +10,13 @@ type DefaultSuggestion = {
   iconBg: string;
   title: string;
   description: string;
+};
+
+type Props = {
+  query: string;
+  filteredDestinations: Destination[];
+  selectedIndex: number;
+  onSelect: (place: string) => void;
 };
 
 const DEFAULT_SUGGESTIONS: DefaultSuggestion[] = [
@@ -86,11 +93,13 @@ const highlightText = (text: string, query: string): ReactNode => {
   );
 };
 
-export const DestinationPanel = ({ query }: { query: string }) => {
-  const { destinationSearchService } = useGuardContext(ServiceContext);
-
+export const DestinationPanel = ({
+  query,
+  filteredDestinations,
+  selectedIndex,
+  onSelect,
+}: Props) => {
   const isSearching = query.trim() !== '';
-  const filtered = destinationSearchService.getFilteredDestinations({ query });
 
   return (
     <div className="w-[400px] p-6">
@@ -99,17 +108,23 @@ export const DestinationPanel = ({ query }: { query: string }) => {
           <p className="mb-4 font-semibold text-neutral-800 text-xs">
             연관 검색어
           </p>
-          {filtered.length === 0 ? (
+          {filteredDestinations.length === 0 ? (
             <p className="text-neutral-500 text-sm">
               일치하는 여행지가 없습니다.
             </p>
           ) : (
             <ul className="space-y-1">
-              {filtered.map((d) => (
+              {filteredDestinations.map((d, i) => (
                 <li key={d.id}>
                   <button
                     type="button"
-                    className="flex w-full cursor-pointer items-center gap-3 rounded-xl p-2 text-left transition-colors hover:bg-neutral-100"
+                    onClick={() => onSelect(d.place)}
+                    className={cn(
+                      'flex w-full cursor-pointer items-center gap-3 rounded-xl p-2 text-left transition-colors',
+                      i === selectedIndex
+                        ? 'bg-neutral-100'
+                        : 'hover:bg-neutral-100'
+                    )}
                   >
                     <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-xl bg-neutral-200">
                       <img
@@ -142,6 +157,7 @@ export const DestinationPanel = ({ query }: { query: string }) => {
               <li key={s.id}>
                 <button
                   type="button"
+                  onClick={() => onSelect(s.title)}
                   className="flex w-full cursor-pointer items-center gap-3 rounded-xl p-2 text-left transition-colors hover:bg-neutral-100"
                 >
                   <div
