@@ -8,11 +8,6 @@ export type GuestCounts = {
   PETS: number;
 };
 
-type GuestsPanelProps = {
-  guests: GuestCounts;
-  onGuestsChange: (guests: GuestCounts) => void;
-};
-
 type GuestRowConfig = {
   key: keyof GuestCounts;
   label: string;
@@ -32,7 +27,13 @@ const GUEST_ROWS: GuestRowConfig[] = [
   },
 ];
 
-export const GuestsPanel = ({ guests, onGuestsChange }: GuestsPanelProps) => {
+export const GuestsPanel = ({
+  guests,
+  onGuestsChange,
+}: {
+  guests: GuestCounts;
+  onGuestsChange: (guests: GuestCounts) => void;
+}) => {
   const handleChange = (key: keyof GuestCounts, delta: number) => {
     const targetInfo = GUEST_ROWS.find((r) => r.key === key);
     if (targetInfo === undefined) {

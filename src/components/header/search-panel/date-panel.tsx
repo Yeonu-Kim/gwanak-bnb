@@ -7,12 +7,13 @@ import { cn } from '@/lib/utils';
 
 type DateMode = 'specific' | 'flexible';
 
-type DatePanelProps = {
-  dateRange: DateRange | undefined;
+export const DatePanel = ({
+  dateRange,
+  onDateRangeChange,
+}: {
+  dateRange?: DateRange;
   onDateRangeChange: (range: DateRange | undefined) => void;
-};
-
-export const DatePanel = ({ dateRange, onDateRangeChange }: DatePanelProps) => {
+}) => {
   const [dateMode, setDateMode] = useState<DateMode>('specific');
 
   return (
