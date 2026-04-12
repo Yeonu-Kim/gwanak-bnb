@@ -2,7 +2,7 @@ import destinationsData from '@/data/destinations.json';
 import type {
   Destination,
   DestinationSearchService,
-} from '../domain/destination-search';
+} from '@/feature/domain/destination-search';
 
 const destinations = destinationsData as Destination[];
 

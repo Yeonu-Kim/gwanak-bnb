@@ -1,6 +1,6 @@
-import { Header } from './components/header/header';
-import { implDestinationSearchService } from './feature/destination/destination-search-service';
-import { ServiceContext } from './shared/context/service-context';
+import { Header } from '@/components/header/header';
+import { implDestinationSearchService } from '@/feature/destination/destination-search-service';
+import { ServiceContext } from '@/shared/context/service-context';
 
 const App = () => {
   const services = {
