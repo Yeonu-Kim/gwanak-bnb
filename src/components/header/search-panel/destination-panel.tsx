@@ -12,13 +12,6 @@ type DefaultSuggestion = {
   description: string;
 };
 
-type Props = {
-  query: string;
-  filteredDestinations: Destination[];
-  selectedIndex: number;
-  onSelect: (place: string) => void;
-};
-
 const DEFAULT_SUGGESTIONS: DefaultSuggestion[] = [
   {
     id: 'nearby',
@@ -98,7 +91,12 @@ export const DestinationPanel = ({
   filteredDestinations,
   selectedIndex,
   onSelect,
-}: Props) => {
+}: {
+  query: string;
+  filteredDestinations: Destination[];
+  selectedIndex: number;
+  onSelect: (place: string) => void;
+}) => {
   const isSearching = query.trim() !== '';
 
   return (
